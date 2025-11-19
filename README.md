@@ -1,4 +1,4 @@
-# EXPERIMENT 07 SQUARE WAVE GENERATION AT THE OUTPUT PIN USING TIMER
+# EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER
 
 ### Aim:
 To generate a PWM wave at the timer pin output and  simuate it on  proteus using an virtual oscilloscope  
@@ -91,12 +91,9 @@ Step14. click on debug and simulate using simulation as shown below
  ![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/b8efbfc2-f0c5-4106-8117-3a6e7ac87f6c)
 
 
- 
-
-  
-
 ## STM 32 CUBE PROGRAM :
-```c
+
+```
 #include "main.h"
 
 TIM_HandleTypeDef htim2;
@@ -109,26 +106,23 @@ int main(void)
 {
   HAL_Init();
   SystemClock_Config();
+
   MX_GPIO_Init();
   MX_TIM2_Init();
-
   HAL_TIM_Base_Start(&htim2);
   HAL_TIM_PWM_Init(&htim2);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-
+  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   while (1)
   {
   }
-}
 
+}
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -137,7 +131,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -156,11 +149,10 @@ static void MX_TIM2_Init(void)
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
-
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 10000;
+  htim2.Init.Period = 1000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -183,7 +175,7 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 9000;
+  sConfigOC.Pulse = 500;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
@@ -191,11 +183,13 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   HAL_TIM_MspPostInit(&htim2);
+
 }
 
 static void MX_GPIO_Init(void)
 {
   __HAL_RCC_GPIOA_CLK_ENABLE();
+
 }
 
 void Error_Handler(void)
@@ -204,51 +198,47 @@ void Error_Handler(void)
   while (1)
   {
   }
+  
 }
 
 #ifdef  USE_FULL_ASSERT
+
 void assert_failed(uint8_t *file, uint32_t line)
 {
 }
-#endif
-
-
 ```
 
 
 ## Output screen shots of proteus  :
-<img width="1375" height="867" alt="Screenshot 2025-10-17 094244" src="https://github.com/user-attachments/assets/0f541521-f96c-4212-a0b6-63f8d5032fa6" />
+ 
+<img width="896" height="741" alt="pr" src="https://github.com/user-attachments/assets/9c6eed3e-012d-462d-920d-125167ae386a" />
 
- <img width="1372" height="876" alt="Screenshot 2025-10-17 094354" src="https://github.com/user-attachments/assets/0e170ba3-6e6f-4bfa-b35b-5001b3837ef2" />
+<img width="1374" height="885" alt="pr 2" src="https://github.com/user-attachments/assets/644a9e39-608e-4493-b3c7-ab29adc71c55" />
 
- <img width="1375" height="869" alt="Screenshot 2025-10-17 094627" src="https://github.com/user-attachments/assets/1a579f98-65f1-419b-a6c5-81a50690e20a" />
+<img width="1376" height="886" alt="pr 3" src="https://github.com/user-attachments/assets/02b1f3dd-5308-44da-904d-9d5bb47e795c" />
 
- ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
- <img width="692" height="652" alt="image" src="https://github.com/user-attachments/assets/741a7d49-a950-4093-994d-75ddfa3d9e71" />
+<img width="1375" height="884" alt="pr 4" src="https://github.com/user-attachments/assets/8812bf32-ff23-426a-a322-2cffe936d283" />
+
+
+## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
+
+<img width="861" height="951" alt="circuit" src="https://github.com/user-attachments/assets/1444ac98-a79f-4957-a7f1-bc740a27b0f3" />
 
 
 ## DUTY CYCLE AND FREQUENCY CALCULATION 
-For PULSE = 5000
 
-TON = 0.32(ms)
-TOFF = 0.32(ms)
-Total Time = 0.64(ms)
-Frequency = 1 / 0.64 = 1.56Hz
+FOR PULSE AT 500
 
-For PULSE = 7000
+TON = 2.5ms TOFF=2.5ms TOTAL TIME = 5ms FREQUENCY = 1/(5*10^-3)= 200Hz
 
-TON = 0.41(ms)
-TOFF = 0.19(ms)
-Total Time = 0.6(ms)
-Frequency = 1 / 0.6 = 1.66Hz
+FOR PULSE AT 600
 
- 
-For PULSE = 9000
+TON = 3ms TOFF= 2ms TOTAL TIME = 5ms FREQUENCY = 1/(TOTAL TIME)=200Hz
 
-TON = 0.57(ms)
-TOFF = 0.12(ms)
-Total Time = 0.69(ms)
-Frequency =1/0.69=1.45 Hz
+FOR PULSE AT 700
+
+TON = 3.5ms TOFF=1.5ms TOTAL TIME = 5ms FREQUENCY = 1/(TOTAL TIME)=200Hz
+
 
 ## Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated 
